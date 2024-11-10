@@ -32,6 +32,7 @@ def save():
         total_points += credit * grade_points[grade]
 
     gpa = total_points / total_credits if total_credits > 0 else 0
+    gpa = round(gpa, 2)  # Limit GPA to 2 decimal places
 
     return template('home', total_credits=total_credits, gpa=gpa)
 
