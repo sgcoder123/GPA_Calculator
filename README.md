@@ -1,6 +1,8 @@
-# 🎓🧮 GPA Calculator
+# 🎓 GPA Calculator
 
 This project is my first project for Hack Club.
+
+## 📄 Description
 
 This project is a GPA Calculator that takes input of the user's courses, grades, and credits. It calculates the GPA and total credits of the user from the input given. Additionally, it includes a grade chart to convert grades as a percentage into letter form (e.g., A+).
 
