@@ -1,0 +1,125 @@
+[
+    {
+        "email": "saineelg@gmail.com",
+        "courses": [
+            "Science",
+            "Math",
+            "Art"
+        ],
+        "credits": [
+            "12",
+            "16",
+            "4"
+        ],
+        "grades": [
+            "A",
+            "B+",
+            "A+"
+        ],
+        "total_credits": 32.0,
+        "gpa": 3.69
+    },
+    {
+        "email": "saineelg@gmail.com",
+        "courses": [
+            "Math",
+            "Science",
+            "English",
+            "Athletics"
+        ],
+        "credits": [
+            "1",
+            "0",
+            "0",
+            "0"
+        ],
+        "grades": [
+            "A+",
+            "A+",
+            "A+",
+            "A+"
+        ],
+        "total_credits": 1.0,
+        "gpa": 4.3
+    },
+    {
+        "email": "saineelg@gmail.com",
+        "courses": [
+            "Computer Science",
+            "Drama",
+            "Art"
+        ],
+        "credits": [
+            "12",
+            "13",
+            "12"
+        ],
+        "grades": [
+            "A",
+            "A+",
+            "A+"
+        ],
+        "total_credits": 37.0,
+        "gpa": 4.2
+    },
+    {
+        "email": "saineelg@gmail.com",
+        "courses": [
+            "English",
+            "Math",
+            "History"
+        ],
+        "credits": [
+            "13",
+            "11",
+            "10"
+        ],
+        "grades": [
+            "A+",
+            "A",
+            "A+"
+        ],
+        "total_credits": 34.0,
+        "gpa": 4.2
+    },
+    {
+        "email": "saineelg@gmail.com",
+        "courses": [
+            "History",
+            "Computer Science",
+            "Math"
+        ],
+        "credits": [
+            "16",
+            "10",
+            "13"
+        ],
+        "grades": [
+            "A+",
+            "B+",
+            "A"
+        ],
+        "total_credits": 39.0,
+        "gpa": 3.94
+    },
+    {
+        "email": "saineelg@gmail.com",
+        "courses": [
+            "Art",
+            "Athletics",
+            "History"
+        ],
+        "credits": [
+            "14",
+            "14",
+            "14"
+        ],
+        "grades": [
+            "A+",
+            "B+",
+            "A"
+        ],
+        "total_credits": 42.0,
+        "gpa": 3.87
+    }
+]

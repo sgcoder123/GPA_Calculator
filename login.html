@@ -1,0 +1,89 @@
+<!-- login.tpl -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            background: #6495ED;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        header {
+            background-color: #0047AB;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+        h2{
+            text-align: center;
+            color: #ffffff;
+            margin-top: auto;
+        }
+        .main-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+        }
+
+        .login-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            margin-left: auto;
+            margin-top: auto;
+            margin-right: auto;
+            margin-bottom: auto;
+        }
+
+        .login-container h1 {
+            margin-bottom: 30px;
+        }
+
+        .login-container .form-group {
+            margin-bottom: 20px;
+        }
+
+        .login-container .btn-primary {
+            width: 100%;
+        }
+
+        .login-container .error-message {
+            color: red;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>GPA Calculator</h1>
+    </header>
+    <h2>Enter your email to calculate and track your Grades, GPA, and Credits</h2>
+    <div class="login-container">
+        <h1>Login</h1>
+        <form action="/login" method="post">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        % if error:
+            <p class="error-message">{{error}}</p>
+        % end
+    </div>
+</body>
+</html>

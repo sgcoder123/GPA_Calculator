@@ -55,13 +55,22 @@
         <h1>GPA Calculator</h1>
     </header>
     <div class="container">
+        <div>
+            <div class="table-container">
+                <form id="gradeForm" method="post" action="/save?email={{email}}">
+                    </table>
+                    <div class="form-group">
+                    </div>
+                </form>
+            </div>
+        </div>
         <div class="table-container">
-            <form id="gradeForm" method="post" action="/save">
+            <form id="gradeForm" method="post" action="/save?email={{email}}">
                 <table id="gradeTable" class="table table-bordered">
                     <thead class="thead-dark">
                         <tr>
                             <th>Course</th>
-                            <th>Credits</th>
+                            <th>Credits</th>                     
                             <th>Grade <span id="infoIcon" style="cursor: pointer;">&#9432;</span></th>
                         </tr>
                     </thead>
@@ -96,13 +105,12 @@
                 <button type="button" class="btn btn-primary" onclick="addRow()">Add Course</button>
                 <button type="button" class="btn btn-danger" onclick="removeRow()">Remove Course</button>
                 <button type="submit" class="btn btn-success">Calculate GPA</button>
-                <button type="button" class="btn btn-warning" onclick="confirmReset()">Reset</button> <!-- Updated reset button -->
+                <a href="/user_info?email={{email}}" class="btn btn-info">View My Info</a>
+                <button type="button" class="btn btn-warning" onclick="confirmReset()">Reset</button>
             </form>
-            <div id="results" class="mt-4">
                 <h2>Results</h2>
                 <p>GPA: <span id="gpa">{{ gpa }}</span></p>
                 <p>Total Credits: <span id="totalCredits">{{ total_credits }}</span></p>
-            </div>
             <div id="gradeChart" class="grade-chart mt-4" style="display: none;">
                 <h2>Grade Chart</h2>
                 <table class="table table-bordered">
@@ -141,7 +149,7 @@
                     if (Array.isArray(subjects)) {
                         subjectsData = subjects;
                         const dropdown = document.getElementById('courseDropdown');
-                        dropdown.innerHTML = '<option value="">Select course</option>'; // Clear existing options
+                        dropdown.innerHTML = '<option value="">Select a course</option>'; // Clear existing options
                         subjects.forEach(subject => {
                             const option = document.createElement('option');
                             option.value = subject;
@@ -154,6 +162,8 @@
                 })
                 .catch(error => console.error('Error fetching subjects:', error));
         }
+
+        document.addEventListener('DOMContentLoaded', populateDropdown);
 
         function addRow() {
             var table = document.getElementById("gradeTable").getElementsByTagName('tbody')[0];
@@ -225,7 +235,7 @@
                             <option value="C">C</option>
                             <option value="C-">C-</option>
                             <option value="D+">D+</option>
-                            <option value="D">D</option>
+                            <option value="D">D</</option>
                             <option value="D-">D-</option>
                             <option value="F">F</option>
                         </select>
@@ -271,8 +281,19 @@
         }
 
         document.getElementById('gradeForm').addEventListener('submit', function(event) {
-            if (!validateForm()) {
-                event.preventDefault();
+            event.preventDefault();
+            if (validateForm()) {
+                const formData = new FormData(this);
+                fetch('/save?email={{email}}', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    displayResults(data.gpa, data.total_credits);
+                })
+                .catch(error => console.error('Error:', error));
+            } else {
                 alert('Please fill out all fields before submitting.');
             }
         });
@@ -289,6 +310,7 @@
         });
 
         function displayResults(gpa, totalCredits) {
+            document.getElementById('results').style.display = 'block';
             document.getElementById('gpa').textContent = gpa.toFixed(2); // Limit GPA to 2 decimal places
             document.getElementById('totalCredits').textContent = totalCredits;
         }
