@@ -72,7 +72,7 @@
                                     <option value="">Select a course</option>
                                 </select>
                             </td>
-                            <td><input type="number" name="credits" class="form-control credits-input" placeholder="Enter credits"></td> 
+                            <td><input type="number" name="credits" class="form-control credits-input" placeholder="Enter credits" min="1" oninput="validity.valid||(value='');"></td> 
                             <td>
                                 <select name="grade" id="gradeDropdown" class="form-control">
                                     <option value="A+">A+</option>
@@ -167,7 +167,7 @@
             });
             selectHTML += '</select>';
             cell1.innerHTML = selectHTML;
-            cell2.innerHTML = '<input type="number" name="credits" class="form-control credits-input" oninput="updateTotalCredits()" placeholder="Enter credits">';
+            cell2.innerHTML = '<input type="number" name="credits" class="form-control credits-input" oninput="updateTotalCredits()" placeholder="Enter credits" min="1" oninput="validity.valid||(value=\'\');">';
             cell3.innerHTML = '<select name="grade" class="form-control"><option value="A+">A+</option><option value="A">A</option><option value="A-">A-</option><option value="B+">B+</option><option value="B">B</option><option value="B-">B-</option><option value="C+">C+</option><option value="C">C</option><option value="C-">C-</option><option value="D+">D+</option><option value="D">D</option><option value="D-">D-</option><option value="F">F</option></select>';
             updateDropdowns();
         }
@@ -212,7 +212,7 @@
                             <option value="">Select a course</option>
                         </select>
                     </td>
-                    <td><input type="number" name="credits" class="form-control credits-input" placeholder="Enter credits"></td>
+                    <td><input type="number" name="credits" class="form-control credits-input" placeholder="Enter credits" min="1" oninput="validity.valid||(value='');"></td>
                     <td>
                         <select name="grade" id="gradeDropdown" class="form-control">
                             <option value="A+">A+</option>
@@ -239,6 +239,7 @@
             const credits = document.querySelectorAll('input[name="credits"]');
             const grades = document.querySelectorAll('select[name="grade"]');
             let valid = true;
+            let totalCredits = 0;
 
             courses.forEach(course => {
                 if (course.value === "") {
@@ -254,6 +255,7 @@
                     valid = false;
                     credit.classList.add('is-invalid');
                 } else {
+                    totalCredits += parseFloat(credit.value);
                     credit.classList.remove('is-invalid');
                 }
             });
@@ -267,6 +269,11 @@
                 }
             });
 
+            if (totalCredits === 0) {
+                alert('You cannot calculate the GPA without having any credits.');
+                return false;
+            }
+
             return valid;
         }
 
@@ -274,7 +281,7 @@
             event.preventDefault(); // Prevent the default form submission
 
             if (!validateForm()) {
-                alert('Please fill out all fields before submitting.');
+                alert('Please fill out all fields correctly before submitting.');
                 return;
             }
 

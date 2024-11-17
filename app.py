@@ -40,6 +40,9 @@ def save():
         except ValueError:
             return json.dumps({'error': 'Invalid credit value'})
 
+    if total_credits == 0:
+        return json.dumps({'error': 'You cannot calculate the GPA without having any credits'})
+
     gpa = total_points / total_credits if total_credits > 0 else 0
     gpa = round(gpa, 2)  # Limit GPA to 2 decimal places
 
