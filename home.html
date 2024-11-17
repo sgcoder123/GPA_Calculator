@@ -62,7 +62,7 @@
                         <tr>
                             <th>Course</th>
                             <th>Credits</th>
-                            <th>Grade <span id="infoIcon" style="cursor: pointer;">&#9432;</span></th>
+                            <th>Grade <span id="infoIcon" style="cursor: pointer;" title="Click to view grade chart">&#9432;</span></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -72,7 +72,7 @@
                                     <option value="">Select a course</option>
                                 </select>
                             </td>
-                            <td><input type="number" name="credits" class="form-control credits-input"></td> 
+                            <td><input type="number" name="credits" class="form-control credits-input" placeholder="Enter credits"></td> 
                             <td>
                                 <select name="grade" id="gradeDropdown" class="form-control">
                                     <option value="A+">A+</option>
@@ -167,7 +167,7 @@
             });
             selectHTML += '</select>';
             cell1.innerHTML = selectHTML;
-            cell2.innerHTML = '<input type="number" name="credits" class="form-control credits-input" oninput="updateTotalCredits()">';
+            cell2.innerHTML = '<input type="number" name="credits" class="form-control credits-input" oninput="updateTotalCredits()" placeholder="Enter credits">';
             cell3.innerHTML = '<select name="grade" class="form-control"><option value="A+">A+</option><option value="A">A</option><option value="A-">A-</option><option value="B+">B+</option><option value="B">B</option><option value="B-">B-</option><option value="C+">C+</option><option value="C">C</option><option value="C-">C-</option><option value="D+">D+</option><option value="D">D</option><option value="D-">D-</option><option value="F">F</option></select>';
             updateDropdowns();
         }
@@ -212,7 +212,7 @@
                             <option value="">Select a course</option>
                         </select>
                     </td>
-                    <td><input type="number" name="credits" class="form-control credits-input"></td>
+                    <td><input type="number" name="credits" class="form-control credits-input" placeholder="Enter credits"></td>
                     <td>
                         <select name="grade" id="gradeDropdown" class="form-control">
                             <option value="A+">A+</option>
@@ -271,10 +271,27 @@
         }
 
         document.getElementById('gradeForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
             if (!validateForm()) {
-                event.preventDefault();
                 alert('Please fill out all fields before submitting.');
+                return;
             }
+
+            const formData = new FormData(this);
+            fetch('/save', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    displayResults(data.gpa, data.total_credits);
+                }
+            })
+            .catch(error => console.error('Error:', error));
         });
 
         document.addEventListener('DOMContentLoaded', populateDropdown);
@@ -289,6 +306,7 @@
         });
 
         function displayResults(gpa, totalCredits) {
+            document.getElementById('results').style.display = 'block';
             document.getElementById('gpa').textContent = gpa.toFixed(2); // Limit GPA to 2 decimal places
             document.getElementById('totalCredits').textContent = totalCredits;
         }

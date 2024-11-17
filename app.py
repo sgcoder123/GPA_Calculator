@@ -27,14 +27,23 @@ def save():
     total_points = 0
 
     for course, credit, grade in zip(courses, credits, grades):
-        credit = float(credit)
-        total_credits += credit
-        total_points += credit * grade_points[grade]
+        if not course or not credit or not grade:
+            return json.dumps({'error': 'All fields are required'})
+        if grade not in grade_points:
+            return json.dumps({'error': f'Invalid grade value: {grade}'})
+        try:
+            credit = float(credit)
+            if credit <= 0:
+                return json.dumps({'error': 'Credit value must be positive'})
+            total_credits += credit
+            total_points += credit * grade_points[grade]
+        except ValueError:
+            return json.dumps({'error': 'Invalid credit value'})
 
     gpa = total_points / total_credits if total_credits > 0 else 0
     gpa = round(gpa, 2)  # Limit GPA to 2 decimal places
 
-    return template('home', total_credits=total_credits, gpa=gpa)
+    return json.dumps({'total_credits': total_credits, 'gpa': gpa})
 
 @app.route('/subjects.json')
 def serve_subjects():
@@ -43,6 +52,10 @@ def serve_subjects():
 @app.route('/favicon.ico')
 def serve_favicon():
     return static_file('favicon.ico', root='./static')
+
+@app.route('/static/<filename:path>')
+def serve_static(filename):
+    return static_file(filename, root='./static')
 
 if __name__ == '__main__':
     run(app = app, port=8080, debug=True, reloader=True)
