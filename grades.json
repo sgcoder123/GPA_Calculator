@@ -121,5 +121,59 @@
         ],
         "total_credits": 42.0,
         "gpa": 3.87
+    },
+    {
+        "email": "saineelg@gmail.com",
+        "courses": [
+            "Music",
+            "Health",
+            "English"
+        ],
+        "credits": [
+            "13",
+            "8",
+            "15"
+        ],
+        "grades": [
+            "A+",
+            "B+",
+            "A-"
+        ],
+        "total_credits": 36.0,
+        "gpa": 3.83
+    },
+    {
+        "email": "saineelg@gmail.com",
+        "courses": [
+            "Foreign Language",
+            "Physical Education"
+        ],
+        "credits": [
+            "9",
+            "12"
+        ],
+        "grades": [
+            "A+",
+            "A-"
+        ],
+        "total_credits": 21.0,
+        "gpa": 3.96
+    },
+    {
+        "email": "saineelg@gmail.com",
+        "courses": [
+            "Foreign Language",
+            "Physical Education"
+        ],
+        "credits": [
+            "9",
+            "12"
+        ],
+        "grades": [
+            "A+",
+            "A-"
+        ],
+        "total_credits": 21.0,
+        "gpa": 3.96
     }
 ]
